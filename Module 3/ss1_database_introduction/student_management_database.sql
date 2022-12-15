@@ -1,5 +1,8 @@
 create database ss1_student_database;
-
+use class;
+drop 
+  database class;
+use module3_day1;
 -- TAO BANG
 create table class(
   id int primary key, 
@@ -11,24 +14,23 @@ create table teacher(
   age int, 
   country varchar(20)
 );
-
 -- THEM DATA
 insert into class(id, `Name`) 
-values
+values 
   (1, "DUC"), 
   (2, "DUNG");
 insert into class(id) 
 values 
   (3);
 insert into class 
-values
+values  
   (1, "DUYEN");
 -- LAY DATA
-select 
+select
   * 
 from
   class;
-select 
+select
   id 
 from
   class;
@@ -38,27 +40,30 @@ from
   class;
   
 -- XOA DATA theo row
-set
-  sql_safe_updates = 0;
-delete from 
+set 
+sql_safe_updates = 0;
+
+-- DELETE xóa phải có SET SAFE, Riêng xóa theo Id primary key thì không cần
+delete from
   class;
 set
   sql_safe_updates = 1;
-delete from 
+delete from
   class 
-where
+where 
   id = 1;
 delete from
   class 
-where
+where 
   `Name` = "DUNG";
   
 -- Truncate là xóa hết dữ liệu có hoặc không có TABLE cũng được, Truncate xóa không cần SET SAFE
 truncate class;
+
 -- THAY DOI
-update 
+update
   class 
-set 
+set
   id = 4 
 where 
   `Name` = "DUC";
@@ -70,11 +75,11 @@ where
   id = 3;
   
 -- THêm cột 
-alter table 
+alter table
   class 
-add
+add 
   column(`Point` int);
-alter table  
+alter table 
   class 
 add
   column(
@@ -84,17 +89,19 @@ add
 -- Drop là xóa hết Bảng phải có TABLE 
 drop
   table class;
+  
 -- Xóa theo cột 
-alter table 
+alter table
   class 
 drop 
   column gender;
+  
 -- Xóa database
-drop 
+drop
   database module3_day1;
-create table student as 
-select 
+create table student as
+select
   id, 
   `Name` 
-from 
+from
   class;
