@@ -6,16 +6,16 @@ use module3_day1;
 -- TAO BANG
 create table class(
   id int primary key, 
-  `Name` varchar(30)
+  `name` varchar(30)
 );
 create table teacher(
   id int primary key, 
-  `Name` varchar(30), 
+  `name` varchar(30), 
   age int, 
   country varchar(20)
 );
 -- THEM DATA
-insert into class(id, `Name`) 
+insert into class(id, `name`) 
 values 
   (1, "DUC"), 
   (2, "DUNG");
@@ -25,6 +25,7 @@ values
 insert into class 
 values  
   (1, "DUYEN");
+  
 -- LAY DATA
 select
   * 
@@ -35,7 +36,7 @@ select
 from
   class;
 select
-  `Name` 
+  `name` 
 from
   class;
   
@@ -55,7 +56,7 @@ where
 delete from
   class 
 where 
-  `Name` = "DUNG";
+  `name` = "DUNG";
   
 -- Truncate là xóa hết dữ liệu có hoặc không có TABLE cũng được, Truncate xóa không cần SET SAFE
 truncate class;
@@ -66,11 +67,11 @@ update
 set
   id = 4 
 where 
-  `Name` = "DUC";
+  `name` = "DUC";
 update
   class 
 set
-  `Name` = "CUONG" 
+  `name` = "CUONG" 
 where
   id = 3;
   
@@ -78,7 +79,7 @@ where
 alter table
   class 
 add 
-  column(`Point` int);
+  column(`point` int);
 alter table 
   class 
 add
@@ -102,6 +103,6 @@ drop
 create table student as
 select
   id, 
-  `Name` 
+  `name` 
 from
   class;
