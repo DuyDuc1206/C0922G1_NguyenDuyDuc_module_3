@@ -1,8 +1,8 @@
-create database if not exists quan_ly_ban_hang;
+create database if not exists quan_ly_ban_hang_ss2;
 
 drop 
-  database if exists quan_ly_ban_hang;
-use quan_ly_ban_hang;
+  database if exists quan_ly_ban_hang_ss2;
+use quan_ly_ban_hang_ss2;
 
 create table customer(
   customer_id int auto_increment primary key, 
