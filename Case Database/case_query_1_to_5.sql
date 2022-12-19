@@ -18,14 +18,6 @@ where lk.ten_loai_khach = 'Diamond'
 group by hd.ma_khach_hang;
 
 -- task 5
-select * from loai_dich_vu;
-select * from khach_hang;
-select * from hop_dong_chi_tiet;
-select * from hop_dong;
-select * from loai_khach;
-select * from dich_vu_di_kem;
-select * from dich_vu;
-
 select kh.ma_khach_hang, 
 kh.ho_ten, 
 lk.ten_loai_khach, 

@@ -1,6 +1,6 @@
-create database if not exists ham_thong_dung;
+create database if not exists common_function_in_sql;
 drop 
-  database if exists ham_thong_dung;
+  database if exists common_function_in_sql;
 use quan_ly_sinh_vien;
 
 -- Hiển thị tất cả các thông tin môn học (bảng subject) có credit lớn nhất.
