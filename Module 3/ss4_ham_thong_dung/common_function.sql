@@ -9,9 +9,9 @@ select
 from 
   `subject` 
 where 
-  Credit = (
+  credit = (
     select 
-      max(Credit) 
+      max(credit) 
     from 
       `subject`
   );
@@ -19,14 +19,14 @@ where
 -- Hiển thị các thông tin môn học có điểm thi lớn nhất.
 select 
   s.*, 
-  m.Mark 
+  m.mark 
 from 
   `subject` as s 
-  join mark as m on s.SubId = m.SubId 
+  join mark as m on s.sub_id = m.sub_id 
 where 
-  m.Mark = (
+  m.mark = (
     select 
-      max(Mark) 
+      max(mark) 
     from 
       mark
   );
@@ -34,9 +34,9 @@ where
 -- Hiển thị các thông tin sinh viên và điểm trung bình của mỗi sinh viên, xếp hạng theo thứ tự điểm giảm dần
 select 
   st.*, 
-  avg(m.Mark) 
+  avg(m.mark) 
 from 
   student as st 
-  join mark as m on st.StudentId = m.StudentId 
+  join mark as m on st.student_id = m.student_id 
 group by 
-  m.studentId;
+  m.student_id;
