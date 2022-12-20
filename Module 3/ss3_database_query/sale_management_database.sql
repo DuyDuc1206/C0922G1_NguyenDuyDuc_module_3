@@ -34,6 +34,7 @@ values
   (1, 2, 4), 
   (2, 3, 3);
   
+ -- Hiển thị các thông tin  gồm oID, oDate, oPrice của tất cả các hóa đơn trong bảng Order
 select 
   o.order_id, 
   o.order_date, 
@@ -43,6 +44,7 @@ select
 from 
   `order` as o;
   
+  -- Hiển thị danh sách các khách hàng đã mua hàng, và danh sách sản phẩm được mua bởi các khách
 select 
   c.customer_name, 
   p.produc_name 
@@ -52,6 +54,7 @@ from
   join order_detail as od on od.order_id = o.order_id 
   join product p on p.product_id = od.product_id;
   
+  -- Hiển thị tên những khách hàng không mua bất kỳ một sản phẩm nào
 select 
   c.customer_name 
 from 
@@ -64,6 +67,8 @@ where
       `order` as o
   );
   
+  -- Hiển thị mã hóa đơn, ngày bán và giá tiền của từng hóa đơn (giá một hóa đơn được tính bằng tổng giá bán của từng loại mặt hàng xuất hiện trong hóa đơn. 
+  -- Giá bán của từng loại được tính = odQTY*pPrice)
 select 
   o.order_id, 
   o.order_date, 

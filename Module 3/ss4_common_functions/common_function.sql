@@ -39,4 +39,5 @@ from
   student as st 
   join mark as m on st.student_id = m.student_id 
 group by 
-  m.student_id;
+  m.student_id
+order by m.mark desc;

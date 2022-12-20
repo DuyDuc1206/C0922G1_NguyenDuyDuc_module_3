@@ -54,9 +54,27 @@ group by
   
   -- task 13 Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
   -- (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
-  select dvdk.* from dich_vu_di_kem as dvdk 
+  select dvdk.*,
+  sum(hdct.so_luong) as'so_luong'
+  from dich_vu_di_kem as dvdk 
   join hop_dong_chi_tiet as hdct on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
-  where hdct.ma_dich_vu_di_kem = (select max(count(hdct.ma_hop_dong_chi_tiet)) from hop_dong_chi_tiet as hdct 
-  join dich_vu_di_kem as dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem)
-  group by hdct.ma_dich_vu_di_kem;
+  group by ma_dich_vu_di_kem
+  having sum(hdct.so_luong) >= all 
+  ( select sum(hdct.so_luong) 
+  from hop_dong_chi_tiet as hdct 
+  group by ma_dich_vu_di_kem );
+  
+  -- task 14.Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất.
+  -- Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem).
+  select hd.ma_hop_dong,
+  ldv.ten_loai_dich_vu,
+  dvdk.ten_dich_di_kem,
+  count(hdct.ma_dich_vu_di_kem)
+  from dich_vu_di_kem as dvdk
+  left join hop_dong_chi_tiet as hdct
+  left join hop_dong as hd
+  left join dich_vu as dv
+  left join loai_dich_vu as ldv
+  
+  
   
