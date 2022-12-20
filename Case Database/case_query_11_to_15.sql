@@ -29,18 +29,34 @@ select
   kh.ho_ten, 
   kh.so_dien_thoai, 
   dv.ten_dich_vu, 
-  sum(hdct.so_luong) as so_luong, 
+  ifnull(sum(hdct.so_luong),0) as so_luong, 
   hd.tien_dat_coc 
 from 
   hop_dong as hd 
-  join khach_hang as kh on kh.ma_khach_hang = hd.ma_khach_hang 
-  join nhan_vien as nv on nv.ma_nhan_vien = hd.ma_nhan_vien 
-  join dich_vu as dv on dv.ma_dich_vu = hd.ma_dich_vu 
-  join hop_dong_chi_tiet as hdct on hdct.ma_hop_dong = hd.ma_hop_dong 
+  left join khach_hang as kh on kh.ma_khach_hang = hd.ma_khach_hang 
+  left join nhan_vien as nv on nv.ma_nhan_vien = hd.ma_nhan_vien 
+  left join dich_vu as dv on dv.ma_dich_vu = hd.ma_dich_vu 
+  left join hop_dong_chi_tiet as hdct on hdct.ma_hop_dong = hd.ma_hop_dong 
 where 
   (
     month(hd.ngay_lam_hop_dong) in (10, 11, 12)
   ) 
   and year(hd.ngay_lam_hop_dong) = 2020 
+  and hd.ma_dich_vu not in 
+  (
+  select hd.ma_dich_vu 
+  from hop_dong as hd 
+  join dich_vu as dv on dv.ma_dich_vu = hd.ma_dich_vu
+  where ( quarter(ngay_lam_hop_dong) = 1 or quarter(ngay_lam_hop_dong) = 2 ) and year(ngay_lam_hop_dong) = 2021
+  )
 group by 
-  hdct.ma_hop_dong
+  hdct.ma_hop_dong;
+  
+  -- task 13 Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
+  -- (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+  select dvdk.* from dich_vu_di_kem as dvdk 
+  join hop_dong_chi_tiet as hdct on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+  where hdct.ma_dich_vu_di_kem = (select max(count(hdct.ma_hop_dong_chi_tiet)) from hop_dong_chi_tiet as hdct 
+  join dich_vu_di_kem as dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem)
+  group by hdct.ma_dich_vu_di_kem;
+  
