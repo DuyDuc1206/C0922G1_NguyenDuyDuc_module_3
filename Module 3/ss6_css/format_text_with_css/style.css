@@ -1,0 +1,25 @@
+.para1{
+    text-align: center;
+    text-decoration-style: inherit;
+}
+h2{
+    /*Kích thươc chữ*/
+    font-size: 10vh;
+    /*thiết lập tô đâm*/
+    font-weight: normal;
+    /*Kiểu chữ in nghiêng*/
+    font-style: italic;
+    /*thiết lập căn chỉnh*/
+    text-align: center;
+    /*font chữ: family*/
+    font-family: "Copperplate Gothic Bold",sans-serif;
+    color: blue;
+}
+.para2{
+    /*align là căn chỉnh*/
+    /*justify là dãn đều*/
+    text-align: justify;
+    text-indent: 30px;
+    /*indent là thụt vào*/
+    /*text-indent: inherit;     Thừa hưởng từ thằng cha*/
+}

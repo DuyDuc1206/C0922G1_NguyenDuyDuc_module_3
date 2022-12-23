@@ -1,0 +1,29 @@
+h1{
+    color: hsla(9, 100%, 64%,0.3);
+    text-align: center;
+}
+h5{
+    text-align: center;
+}
+p{
+    text-indent: 30px;
+}
+a{
+    color: black;
+    /*decoration gạch chân*/
+    text-decoration: none;
+}
+/*:link liên kết chưa được viếng thăm
+:visited Liên kết đã được viếng thăm
+:hover Liên kết khi đưa con trỏ qua
+:active Liên kết khi đưa con trỏ vào*/
+a:hover{
+    color: red;
+}
+#align_img{
+    text-align: center;
+}
+img{
+    /*Phụ thuộc vào thằng cha*/
+    vertical-align: middle;
+}
