@@ -24,7 +24,7 @@ public class CustomerTypeRepository implements ICustomerTypeRepository {
             while (rs.next()) {
                 int id = rs.getInt("customer_type_id");
                 String name = rs.getString("customer_type_name");
-                CustomerType customerType = new CustomerType(id, name);
+                CustomerType customerType = new CustomerType( id,name);
                 customerTypeList.add(customerType);
             }
         } catch (SQLException throwables) {

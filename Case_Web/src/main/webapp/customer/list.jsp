@@ -45,10 +45,15 @@
                 <td><c:out value="${customer.getEmail()}"/></td>
                 <td><c:out value="${customer.getCustomerType().getName()}"/></td>
                 <td>
-                    <a href="" class="btn btn-md btn-outline-secondary"> <i class="fas fa-edit"></i></a>
-                    <button onclick="infoDelete('${customer.getId()}','${customer.getName}')"
-                            class="btn btn-md btn-danger ms-1 " data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                            class="fas fa-trash-alt"></i></button>
+                    <button onclick="infoEdit('${customer.getId()}','${customer.getName()}','${customer.getDateOfBirth()}',
+                            '${customer.getGender()}','${customer.getIdCard()}','${customer.getPhoneNumber()}','${customer.getAddress()}',
+                            '${customer.getEmail()}')"
+                            class="btn btn-md btn-outline-secondary" data-bs-toggle="modal"
+                            data-bs-target="#editCustomer"><i class="fas fa-edit"></i></button>
+                    <button onclick="infoDelete('${customer.getId()}','${customer.getName()}')"
+                            class="btn btn-md btn-danger ms-1 " data-bs-toggle="modal" data-bs-target="#deleteCustomer">
+                        <i
+                                class="fas fa-trash-alt"></i></button>
                 </td>
             </tr>
         </c:forEach>
@@ -57,7 +62,7 @@
 </div>
 
 <!-- Modal delete-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -67,11 +72,69 @@
             <form action="/customer?action=delete" method="post">
                 <div class="modal-body">
                     <input hidden type="text" id="deleteId" name="deleteId">
-                    <span>Do you want to delete </span><span id="deleteName" class="text-danger"></span>?
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-md btn-primary">Delete</button>
+                    <span>Do you want to delete </span><span id="deleteName" class="text-danger"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-md btn-primary">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal edit-->
+<div class="modal fade" id="editCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit customer information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/customer?action=edit" method="post">
+                <div class="modal-body">
+                    <input type="text" id="id" name="id" hidden>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="newName">
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">DOB</label>
+                        <input type="date" class="form-control" name="dateOfBirth" id="newDateOfBirth">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        <input type="text" class="form-control" name="gender" id="newGender">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ID Card</label>
+                        <input type="text" class="form-control" name="idCard" id="newIdCard">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" name="phoneNumber" id="newPhoneNumber">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" name="address" id="newAddress">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-control" name="email" id="newEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Customer Type Name</label>
+                        <select class="form-select"
+                                aria-label="Example select with button addon" name="customerTypeId" id="newCustomerTypeName">
+                            <c:forEach var="customerType" items="${customerTypeList}">
+                                <option value="${customerType.getId()}" ${customerType.getId()}>${customerType.getName()}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Save changes</button>
                 </div>
             </form>
         </div>
@@ -79,8 +142,20 @@
 </div>
 <script>
     function infoDelete(id, name) {
-        document.getElementById("deleteId").values = id;
+        document.getElementById("deleteId").value = id;
         document.getElementById("deleteName").innerText = name;
+    }
+
+    function infoEdit(id, name, dateOfBirth, gender, idCard, phoneNumber, address, email) {
+        document.getElementById("id").value = id;
+        document.getElementById("newName").value = name;
+        document.getElementById("newDateOfBirth").value = dateOfBirth;
+        document.getElementById("newGender").value = gender;
+        document.getElementById("newIdCard").value = idCard;
+        document.getElementById("newPhoneNumber").value = phoneNumber;
+        document.getElementById("newAddress").value = address;
+        document.getElementById("newEmail").value = email;
+        // document.getElementById("newCustomerTypeName").innerText = customerTypeName;
     }
 </script>
 </body>

@@ -11,6 +11,10 @@ public class CustomerType {
         this.name = name;
     }
 
+    public CustomerType(int id) {
+        this.id = id;
+    }
+
     public CustomerType(int id, String name) {
         this.id = id;
         this.name = name;

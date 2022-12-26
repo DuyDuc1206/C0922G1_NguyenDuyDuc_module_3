@@ -13,9 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository implements ICustomerRepository {
-    private final String SELECT_ALL_CUSTOMER = "select * from customer;";
+    private final String SELECT_ALL_CUSTOMER = "select c.*,ct.customer_type_name from customer as c left join customer_type as ct on ct.customer_type_id = c.customer_type_id ;";
     private final String SELECT_CUSTOMER_BY_ID = "select * from customer where customer_id = ?;";
     private final String DELETE_CUSTOMER_BY_ID = "delete from customer where customer_id = ?;";
+    private final String UPDATE_CUSTOMER_BY_ID = "update customer set \n" +
+            "customer_name = ?,\n" +
+            "date_of_birth =?,\n" +
+            "gender = ?, \n" +
+            "id_card = ?,\n" +
+            "phone_number = ?,\n" +
+            "address = ?,\n" +
+            "email=?,\n" +
+            "customer_type_id =? \n" +
+            "where customer_id = ?;";
 
     @Override
     public List<Customer> selectAllCustomer() {
@@ -33,9 +43,9 @@ public class CustomerRepository implements ICustomerRepository {
                 String phoneNumber = rs.getString("phone_number");
                 String address = rs.getString("address");
                 String email = rs.getString("email");
-                String customerType = rs.getString("customer_type_id");
-                CustomerType customerTypeName = new CustomerType(customerType);
-                Customer customer = new Customer(id, name, dateOfBirth, gender, idCard, phoneNumber, address, email, customerTypeName);
+                String customerTypeName = rs.getString("customer_type_name");
+                CustomerType customerType = new CustomerType(customerTypeName);
+                Customer customer = new Customer(id, name, dateOfBirth, gender, idCard, phoneNumber, address, email, customerType);
                 customerList.add(customer);
             }
         } catch (SQLException throwables) {
@@ -77,6 +87,27 @@ public class CustomerRepository implements ICustomerRepository {
         try {
             PreparedStatement ps = connection.prepareStatement(DELETE_CUSTOMER_BY_ID);
             ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean editCustomer(Customer customer) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(UPDATE_CUSTOMER_BY_ID);
+            ps.setString(1,customer.getName());
+            ps.setString(2,customer.getDateOfBirth());
+            ps.setString(3,customer.getGender());
+            ps.setString(4,customer.getIdCard());
+            ps.setString(5,customer.getPhoneNumber());
+            ps.setString(6,customer.getAddress());
+            ps.setString(7,customer.getEmail());
+            ps.setInt(8,customer.getCustomerType().getId());
+            ps.setInt(9,customer.getId());
             return ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -1,6 +1,9 @@
 package controller;
 
 import model.Customer;
+import model.CustomerType;
+import repository.customer.ICustomerTypeRepository;
+import repository.customer.impl.CustomerTypeRepository;
 import service.customer.ICustomerService;
 import service.customer.impl.CustomerService;
 
@@ -15,6 +18,7 @@ import java.util.List;
 @WebServlet(name = "CustomerServlet", value = "/customer")
 public class CustomerServlet extends HttpServlet {
     private ICustomerService customerService = new CustomerService();
+    private ICustomerTypeRepository customerTypeRepository = new CustomerTypeRepository();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -25,20 +29,44 @@ public class CustomerServlet extends HttpServlet {
             case "delete":
                 deleteCustomer(request, response);
                 break;
-            default:
+            case "edit":
+                editCustomer(request,response);
+                break;
         }
+    }
+
+    private void editCustomer(HttpServletRequest request, HttpServletResponse response) {
+        List<CustomerType> customerTypeList = customerTypeRepository.selectAllCustomerType();
+        request.setAttribute("customerTypeList",customerTypeList);
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String dateOfBirth = request.getParameter("dateOfBirth");
+        String gender = request.getParameter("gender");
+        String idCard = request.getParameter("idCard");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        int customerTypeId = Integer.parseInt(request.getParameter("customerTypeId"));
+        CustomerType customerType = new CustomerType(customerTypeId);
+        Customer customer = new Customer(id,name,dateOfBirth,gender,idCard,phoneNumber,address,email,customerType);
+        boolean check = customerService.editCustomer(customer);
+        String mess = "Edit Successfully!";
+        if(!check){
+            mess = "Edit Failed!";
+        }
+        request.setAttribute("mess",mess);
+        showList(request,response);
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
         int deleteId = Integer.parseInt(request.getParameter("deleteId"));
-        boolean check = customerService.deleteCusomter(deleteId);
+        boolean check = customerService.deleteCustomer(deleteId);
         String mess = "Deleted Successfully!";
         if (!check) {
             mess = "Delete Failed";
         }
         request.setAttribute("mess", mess);
         showList(request, response);
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

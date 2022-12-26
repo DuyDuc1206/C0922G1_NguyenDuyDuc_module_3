@@ -8,4 +8,5 @@ public interface ICustomerRepository {
     List<Customer> selectAllCustomer();
     Customer selectCustomerById(int id);
     boolean deleteCustomer(int id);
+    boolean editCustomer(Customer customer);
 }
