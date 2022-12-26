@@ -5,7 +5,9 @@ import repository.customer.ICustomerRepository;
 import repository.customer.impl.CustomerRepository;
 import service.customer.ICustomerService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerService implements ICustomerService {
     private ICustomerRepository customerRepository = new CustomerRepository();
@@ -27,5 +29,14 @@ public class CustomerService implements ICustomerService {
     @Override
     public boolean editCustomer(Customer customer) {
         return customerRepository.editCustomer(customer);
+    }
+
+    @Override
+    public Map<String, String> insertCustomer(Customer customer) {
+        Map<String,String> errorMap = new HashMap<>();
+        if("".equals(customer.getName())){
+            errorMap.put("name","Name is required");
+        }
+        return errorMap;
     }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CustomerServlet", value = "/customer")
 public class CustomerServlet extends HttpServlet {
@@ -30,14 +31,38 @@ public class CustomerServlet extends HttpServlet {
                 deleteCustomer(request, response);
                 break;
             case "edit":
-                editCustomer(request,response);
+                editCustomer(request, response);
+                break;
+            case "insert":
+                insertCustomer(request, response);
                 break;
         }
     }
 
+    private void insertCustomer(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String dateOfBirth = request.getParameter("dateOfBirth");
+        String gender = request.getParameter("gender");
+        String idCard = request.getParameter("idCard");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String customerTypeName = request.getParameter("customerTypeName");
+        CustomerType customerType = new CustomerType(customerTypeName);
+        Customer customer = new Customer(name, dateOfBirth, gender, idCard, phoneNumber, address, email, customerType);
+        Map<String, String> errorMap = customerService.insertCustomer(customer);
+        String mess = "Added Successfully!";
+        if (!errorMap.isEmpty()) {
+            mess = "Add Failed!";
+        }
+        request.setAttribute("mess",mess);
+        request.setAttribute("errorMap",errorMap);
+        request.setAttribute("customer", customer);
+        showList(request, response);
+
+    }
+
     private void editCustomer(HttpServletRequest request, HttpServletResponse response) {
-        List<CustomerType> customerTypeList = customerTypeRepository.selectAllCustomerType();
-        request.setAttribute("customerTypeList",customerTypeList);
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String dateOfBirth = request.getParameter("dateOfBirth");
@@ -48,14 +73,14 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("email");
         int customerTypeId = Integer.parseInt(request.getParameter("customerTypeId"));
         CustomerType customerType = new CustomerType(customerTypeId);
-        Customer customer = new Customer(id,name,dateOfBirth,gender,idCard,phoneNumber,address,email,customerType);
+        Customer customer = new Customer(id, name, dateOfBirth, gender, idCard, phoneNumber, address, email, customerType);
         boolean check = customerService.editCustomer(customer);
         String mess = "Edit Successfully!";
-        if(!check){
+        if (!check) {
             mess = "Edit Failed!";
         }
-        request.setAttribute("mess",mess);
-        showList(request,response);
+        request.setAttribute("mess", mess);
+        showList(request, response);
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
@@ -87,6 +112,8 @@ public class CustomerServlet extends HttpServlet {
     private void showList(HttpServletRequest request, HttpServletResponse response) {
         List<Customer> customerList = customerService.selectAllCustomer();
         request.setAttribute("customerList", customerList);
+        List<CustomerType> customerTypeList = customerTypeRepository.selectAllCustomerType();
+        request.setAttribute("customerTypeList", customerTypeList);
         try {
             request.getRequestDispatcher("/customer/list.jsp").forward(request, response);
         } catch (ServletException e) {

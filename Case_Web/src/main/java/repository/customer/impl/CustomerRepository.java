@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerRepository implements ICustomerRepository {
     private final String SELECT_ALL_CUSTOMER = "select c.*,ct.customer_type_name from customer as c left join customer_type as ct on ct.customer_type_id = c.customer_type_id ;";
@@ -26,6 +27,8 @@ public class CustomerRepository implements ICustomerRepository {
             "email=?,\n" +
             "customer_type_id =? \n" +
             "where customer_id = ?;";
+    private final String INSERT_INTO_CUSTOMER = "insert into `customer` values\n" +
+            "\t( ?, ?, ? , ?, ?, ?, ?,?);";
 
     @Override
     public List<Customer> selectAllCustomer() {
@@ -43,8 +46,9 @@ public class CustomerRepository implements ICustomerRepository {
                 String phoneNumber = rs.getString("phone_number");
                 String address = rs.getString("address");
                 String email = rs.getString("email");
+                int customerTypeId = rs.getInt("customer_type_id");
                 String customerTypeName = rs.getString("customer_type_name");
-                CustomerType customerType = new CustomerType(customerTypeName);
+                CustomerType customerType = new CustomerType(customerTypeId, customerTypeName);
                 Customer customer = new Customer(id, name, dateOfBirth, gender, idCard, phoneNumber, address, email, customerType);
                 customerList.add(customer);
             }
@@ -71,9 +75,10 @@ public class CustomerRepository implements ICustomerRepository {
                 String phoneNumber = rs.getString("phone_number");
                 String address = rs.getString("address");
                 String email = rs.getString("email");
-                String customerType = rs.getString("customer_type_id");
-                CustomerType customerTypeName = new CustomerType(customerType);
-                customer = new Customer(id_new, name, dateOfBirth, gender, idCCard, phoneNumber, address, email, customerTypeName);
+                int customerTypeId = rs.getInt("customer_type_id");
+                String customerTypeName = rs.getString("customer_type_name");
+                CustomerType customerType = new CustomerType(customerTypeId, customerTypeName);
+                customer = new Customer(id_new, name, dateOfBirth, gender, idCCard, phoneNumber, address, email, customerType);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -99,6 +104,27 @@ public class CustomerRepository implements ICustomerRepository {
         Connection connection = BaseRepository.getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(UPDATE_CUSTOMER_BY_ID);
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getDateOfBirth());
+            ps.setString(3, customer.getGender());
+            ps.setString(4, customer.getIdCard());
+            ps.setString(5, customer.getPhoneNumber());
+            ps.setString(6, customer.getAddress());
+            ps.setString(7, customer.getEmail());
+            ps.setInt(8, customer.getCustomerType().getId());
+            ps.setInt(9, customer.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean insertCustomer(Customer customer) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(INSERT_INTO_CUSTOMER);
             ps.setString(1,customer.getName());
             ps.setString(2,customer.getDateOfBirth());
             ps.setString(3,customer.getGender());
@@ -106,8 +132,7 @@ public class CustomerRepository implements ICustomerRepository {
             ps.setString(5,customer.getPhoneNumber());
             ps.setString(6,customer.getAddress());
             ps.setString(7,customer.getEmail());
-            ps.setInt(8,customer.getCustomerType().getId());
-            ps.setInt(9,customer.getId());
+            ps.setString(8,customer.getCustomerType().getName() );
             return ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
