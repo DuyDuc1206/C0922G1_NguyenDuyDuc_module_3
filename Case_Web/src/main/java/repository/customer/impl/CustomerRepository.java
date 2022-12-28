@@ -4,6 +4,7 @@ import model.Customer;
 import model.CustomerType;
 import repository.BaseRepository;
 import repository.customer.ICustomerRepository;
+import validation.RegexCheck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,8 +28,11 @@ public class CustomerRepository implements ICustomerRepository {
             "email=?,\n" +
             "customer_type_id =? \n" +
             "where customer_id = ?;";
-    private final String INSERT_INTO_CUSTOMER = "insert into `customer` values\n" +
+    private final String INSERT_INTO_CUSTOMER = "insert into `customer`(customer_name,date_of_birth,gender,id_card,phone_number,address,email,customer_type_id) values\n" +
             "\t( ?, ?, ? , ?, ?, ?, ?,?);";
+    private final String SELECT_CUSTOMER_BY_CONDITION = "select c.*, ct.customer_type_name from customer as c \n" +
+            "join customer_type as ct on c.customer_type_id = ct.customer_type_id \n" +
+            "where customer_name like ? and address like ? and email like ?;";
 
     @Override
     public List<Customer> selectAllCustomer() {
@@ -125,18 +129,49 @@ public class CustomerRepository implements ICustomerRepository {
         Connection connection = BaseRepository.getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_CUSTOMER);
-            ps.setString(1,customer.getName());
-            ps.setString(2,customer.getDateOfBirth());
-            ps.setString(3,customer.getGender());
-            ps.setString(4,customer.getIdCard());
-            ps.setString(5,customer.getPhoneNumber());
-            ps.setString(6,customer.getAddress());
-            ps.setString(7,customer.getEmail());
-            ps.setString(8,customer.getCustomerType().getName() );
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getDateOfBirth());
+            ps.setString(3, customer.getGender());
+            ps.setString(4, customer.getIdCard());
+            ps.setString(5, customer.getPhoneNumber());
+            ps.setString(6, customer.getAddress());
+            ps.setString(7, customer.getEmail());
+            ps.setString(8, customer.getCustomerType().getName());
             return ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<Customer> selectCustomerByCondition(String name, String address, String email) {
+        List<Customer> customerList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(SELECT_CUSTOMER_BY_CONDITION);
+            ps.setString(1, "%" + name + "%");
+            ps.setString(2, "%" + address + "%");
+            ps.setString(3, "%" + email + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("customer_id");
+                String nameSearch = rs.getString("customer_name");
+                String dateOfBirth = rs.getString("date_of_birth");
+                String gender = rs.getString("gender");
+                String idCard = rs.getString("id_card");
+                String phoneNumber = rs.getString("phone_number");
+                String addressSearch = rs.getString("address");
+                String emailSearch = rs.getString("email");
+                int idType = rs.getInt("customer_type_id");
+                String customerTypeName = rs.getString("customer_type_name");
+                CustomerType customerType = new CustomerType(idType,customerTypeName);
+                Customer customer = new Customer(id,nameSearch,dateOfBirth,gender,idCard,phoneNumber,addressSearch,emailSearch,customerType);
+                customerList.add(customer);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return customerList;
     }
 }

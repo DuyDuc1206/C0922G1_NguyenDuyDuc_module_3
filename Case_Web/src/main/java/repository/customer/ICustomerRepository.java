@@ -3,7 +3,6 @@ package repository.customer;
 import model.Customer;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ICustomerRepository {
     List<Customer> selectAllCustomer();
@@ -11,4 +10,5 @@ public interface ICustomerRepository {
     boolean deleteCustomer(int id);
     boolean editCustomer(Customer customer);
     boolean insertCustomer(Customer customer);
+    List<Customer> selectCustomerByCondition(String name,String address, String email);
 }

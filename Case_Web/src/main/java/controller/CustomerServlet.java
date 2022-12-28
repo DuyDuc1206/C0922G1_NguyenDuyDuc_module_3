@@ -36,6 +36,27 @@ public class CustomerServlet extends HttpServlet {
             case "insert":
                 insertCustomer(request, response);
                 break;
+            case "search" :
+                searchCustomer(request,response);
+                break;
+        }
+    }
+
+    private void searchCustomer(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        request.setAttribute("name",name);
+        request.setAttribute("address",address);
+        request.setAttribute("email",email);
+        List<Customer> customerList = customerService.selectCustomerByEdition(name,address,email);
+        request.setAttribute("customerList",customerList);
+        try {
+            request.getRequestDispatcher("/view/customer/list.jsp").forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -104,9 +125,9 @@ public class CustomerServlet extends HttpServlet {
                 showList(request, response);
                 break;
             default:
-                showList(request, response);
-        }
+                request.getRequestDispatcher("/view/interface/home.jsp").forward(request,response);
 
+        }
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) {
@@ -115,7 +136,7 @@ public class CustomerServlet extends HttpServlet {
         List<CustomerType> customerTypeList = customerTypeRepository.selectAllCustomerType();
         request.setAttribute("customerTypeList", customerTypeList);
         try {
-            request.getRequestDispatcher("/customer/list.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/customer/list.jsp").forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

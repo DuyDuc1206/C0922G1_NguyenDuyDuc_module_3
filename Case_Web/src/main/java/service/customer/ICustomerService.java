@@ -11,4 +11,5 @@ public interface ICustomerService {
     boolean deleteCustomer(int id);
     boolean editCustomer(Customer customer);
     Map<String,String> insertCustomer(Customer customer);
+    List<Customer> selectCustomerByEdition(String name,String address,String email);
 }

@@ -1,6 +1,5 @@
 package service.customer.impl;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import model.Customer;
 import repository.customer.ICustomerRepository;
 import repository.customer.impl.CustomerRepository;
@@ -43,7 +42,7 @@ public class CustomerService implements ICustomerService {
             errorMap.put("name", "Name doesn't match");
         }
         if ("".equals(customer.getDateOfBirth())) {
-            errorMap.put("dateOfBirth", "Date of birth is quired");
+            errorMap.put("dateOfBirth", "Date of birth is required");
         }
         if ("".equals(customer.getGender())) {
             errorMap.put("gender", "Gender is required");
@@ -73,5 +72,10 @@ public class CustomerService implements ICustomerService {
             customerRepository.insertCustomer(customer);
         }
         return errorMap;
+    }
+
+    @Override
+    public List<Customer> selectCustomerByEdition(String name, String address, String email) {
+        return customerRepository.selectCustomerByCondition(name,address,email);
     }
 }
