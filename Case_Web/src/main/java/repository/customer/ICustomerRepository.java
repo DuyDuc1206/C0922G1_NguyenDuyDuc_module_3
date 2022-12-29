@@ -1,6 +1,6 @@
 package repository.customer;
 
-import model.Customer;
+import model.customer.Customer;
 
 import java.util.List;
 

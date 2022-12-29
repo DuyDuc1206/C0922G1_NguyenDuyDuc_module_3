@@ -1,21 +1,21 @@
-package model;
+package model.facility;
 
-public class CustomerType {
+public class FacilityType {
     private int id;
     private String name;
 
-    public CustomerType() {
+    public FacilityType() {
     }
 
-    public CustomerType(String name) {
-        this.name = name;
-    }
-
-    public CustomerType(int id) {
+    public FacilityType(int id) {
         this.id = id;
     }
 
-    public CustomerType(int id, String name) {
+    public FacilityType(String name) {
+        this.name = name;
+    }
+
+    public FacilityType(int id, String name) {
         this.id = id;
         this.name = name;
     }

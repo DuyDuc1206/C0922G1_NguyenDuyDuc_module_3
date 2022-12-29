@@ -118,11 +118,11 @@
                     <input type="text" id="id" name="id" hidden>
                     <div class="mb-3">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" name="name" id="newName">
+                        <input type="text" class="form-control" name="name" id="newName" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">DOB</label>
-                        <input type="date" class="form-control" name="dateOfBirth" id="newDateOfBirth">
+                        <input type="date" class="form-control" name="dateOfBirth" id="newDateOfBirth" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Gender: </label>
@@ -131,19 +131,19 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID Card</label>
-                        <input type="text" class="form-control" name="idCard" id="newIdCard">
+                        <input type="text" class="form-control" name="idCard" id="newIdCard" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" name="phoneNumber" id="newPhoneNumber">
+                        <input type="text" class="form-control" name="phoneNumber" id="newPhoneNumber" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Address</label>
-                        <input type="text" class="form-control" name="address" id="newAddress">
+                        <input type="text" class="form-control" name="address" id="newAddress" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email" id="newEmail">
+                        <input type="text" class="form-control" name="email" id="newEmail" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Customer Type Name</label>

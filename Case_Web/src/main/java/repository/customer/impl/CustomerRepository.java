@@ -1,10 +1,9 @@
 package repository.customer.impl;
 
-import model.Customer;
-import model.CustomerType;
+import model.customer.Customer;
+import model.customer.CustomerType;
 import repository.BaseRepository;
 import repository.customer.ICustomerRepository;
-import validation.RegexCheck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CustomerRepository implements ICustomerRepository {
     private final String SELECT_ALL_CUSTOMER = "select c.*,ct.customer_type_name from customer as c left join customer_type as ct on ct.customer_type_id = c.customer_type_id ;";
