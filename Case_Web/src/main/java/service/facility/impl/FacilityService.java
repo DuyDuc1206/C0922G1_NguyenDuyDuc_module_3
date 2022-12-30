@@ -15,4 +15,9 @@ public class FacilityService implements IFacilityService {
     public List<Facility> selectAllFacility() {
         return facilityRepository.selectAllFacility();
     }
+
+    @Override
+    public boolean deleteFacilityById(int id) {
+        return facilityRepository.deleteFacilityById(id);
+    }
 }

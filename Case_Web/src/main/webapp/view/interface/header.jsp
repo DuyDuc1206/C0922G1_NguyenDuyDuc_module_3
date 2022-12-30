@@ -1,4 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    a.navbar-brand{color: white}
+    a.nav-link {color:#FFFFFF;}
+    a.nav-link:hover {color:#CBBE73;}
+    a.navbar-brand:hover {color:#CBBE73;}
+</style>
+
 <div class="row container-fluid " style="height: 130px">
     <div class="col-lg-3 " style="justify-items: center;align-content: center;display: grid">
         <img src="https://furamavietnam.com/wp-content/uploads/2018/08/logo.png" alt="furama"
@@ -23,3 +30,24 @@
         <p>84-236-3847 333/888</p>
     </div>
 </div>
+<nav class="navbar navbar-expand-lg sticky-lg-top p-3" style="background-color: #046056;">
+    <div class="container" >
+        <a class="navbar-brand" href="/view/interface/home.jsp" >Home</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent ">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item me-4">
+                    <a class="nav-link " aria-current="page" href="/view/employee/list.jsp" >Employee</a>
+                </li>
+                <li class="nav-item me-4">
+                    <a class="nav-link " href="/customer?action=list" >Customer</a>
+                </li>
+                <li class="nav-item me-4">
+                    <a class="nav-link " href="/facility" >Facility</a>
+                </li>
+                <li class="nav-item me-4">
+                    <a class="nav-link " href="/view/contract/list.jsp" >Contract</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

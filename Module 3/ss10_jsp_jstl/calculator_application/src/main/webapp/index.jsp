@@ -6,12 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
   <head>
     <title>$Title$</title>
   </head>
   <body>
-<c:redirect url="/calculator"></c:redirect>
+  <form action="/calculator" method="post">
+    <pre>First Operand  <input type="number" name="firstNumber" step=".01" required></pre>
+    <pre>Operator       <select name="operator" >
+      <option value="+">Addition</option>
+      <option value="-">Subtraction</option>
+      <option value="*">Multiplication</option>
+      <option value="/">Division</option>
+    </select></pre>
+    <pre>Second Operandr<input type="number" name="secondNumber" step=".01" required></pre>
+    <button type="submit" >Calculator</button>
+  </form>
   </body>
 </html>

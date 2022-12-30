@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IFacilityService {
     List<Facility> selectAllFacility();
+    boolean deleteFacilityById(int id);
 }

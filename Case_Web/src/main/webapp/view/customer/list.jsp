@@ -15,7 +15,6 @@
 </head>
 <body>
 <%@include file="/view/interface/header.jsp" %>
-<%@include file="/view/interface/navbar.jsp" %>
 <div><p id="mess" class="text-center fs-5 text-danger">${mess}</p></div>
 <div class="container mt-2">
     <div class="row justify-content-between">

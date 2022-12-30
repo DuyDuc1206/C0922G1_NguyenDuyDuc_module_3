@@ -7,7 +7,6 @@
 </head>
 <body>
 <%@include file="header.jsp" %>
-<%@include file="navbar.jsp" %>
 <div class="row container-fluid ">
     <div class="col-lg-3 " >
         <ul class="list-group">
