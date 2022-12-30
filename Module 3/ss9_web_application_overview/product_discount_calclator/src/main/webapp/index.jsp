@@ -7,11 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>Product Discount Calculator</title>
-  </head>
-  <body>
-  <form action="/display_discount" method="post">
+</head>
+<body>
+<form action="/display_discount" method="post">
     <pre>
       Product Description: <input type="text" name="description">
     </pre>
@@ -22,6 +22,6 @@
       Discount Amount:     <input type="number" name="amount">
     </pre>
     <button type="submit">Calculate Discount</button>
-  </form>
-  </body>
+</form>
+</body>
 </html>
