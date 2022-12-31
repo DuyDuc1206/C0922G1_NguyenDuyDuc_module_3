@@ -37,7 +37,14 @@ public class FacilityServlet extends HttpServlet {
     }
 
     private void deleteFacility(HttpServletRequest request, HttpServletResponse response) {
-
+            int id = Integer.parseInt(request.getParameter("deleteId"));
+            boolean check = facilityService.deleteFacilityById(id);
+            String mess = "Deleted Successfully!";
+            if(!check){
+                mess = "Delete Failed!";
+            }
+            request.setAttribute("mess",mess);
+            showList(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

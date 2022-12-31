@@ -14,6 +14,10 @@
 </head>
 <body>
 <%@include file="/view/interface/header.jsp" %>
+
+<div>
+    <p id="mess" class="text-center text-danger fs-2" >${mess}</p>
+</div>
 <div class="container-fluid">
     <div class="row">
         <p class="text-center fs-2 fw-bold">All Facility Details</p>
@@ -74,7 +78,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Delete Facility</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/customer?action=delete" method="post">
+            <form action="/facility?action=delete" method="post">
                 <div class="modal-body">
                     <input hidden type="text" id="deleteId" name="deleteId">
                     <span>Do you want to delete </span><span id="deleteName" class="text-danger"></span> ?
@@ -93,6 +97,10 @@
         document.getElementById("deleteId").value = idDelete;
         document.getElementById("deleteName").innerText = nameDelete;
     }
+
+    setTimeout(function () {
+        document.getElementById("mess").style.display = "none";
+    },3000)
 </script>
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script src="datatables/js/jquery.dataTables.min.js"></script>

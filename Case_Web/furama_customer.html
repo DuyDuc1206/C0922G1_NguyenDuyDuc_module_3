@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<div class="row container-fluid " style="height: 130px">
+    <div class="col-lg-3 " style="justify-items: center;align-content: center;display: grid">
+        <img src="https://furamavietnam.com/wp-content/uploads/2018/08/logo.png" alt="furama"
+             style="justify-content: center">
+    </div>
+    <div class="col-lg-3" style="justify-items: center;align-content: center;display: grid">
+        <a href="https://furamavietnam.com/vi/">
+            <div class="col-lg-3" style="justify-items: center;align-content: center;display: grid">
+                <img src="https://smartdata.tonytemplates.com/bestel/wp-content/uploads/2018/05/widget-tripadvisor-logo.png"
+                     alt="aaa">
+                <img src="https://furamavietnam.com/wp-content/uploads/2018/08/widget-tripadvisor-rating.png"
+                     alt="bbb">
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3" style="align-content: flex-end;display: grid">
+        <p> 103 – 105 Đường Võ Nguyên Giáp, Phường Khuê Mỹ, Quận Ngũ hành Sơn, Tp. Đà Nẵng</p>
+        <p> 7.0 km từ sân bay Đà Nẵng</p>
+    </div>
+    <div class="col-lg-3"
+         style="justify-items: center;align-content: center;display: grid; vertical-align: middle;align-items: center">
+        <p>84-236-3847 333/888</p>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg bg-light sticky-lg-top">
+    <div class="container-fluid" style="background-color: #046056; height: 70px">
+        <a class="navbar-brand" href="#" style="color: white;margin-left: 100px">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" style="color: white">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: white">Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: white">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: white">Contract</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" style="margin-right: 100px">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="row container-fluid justify-content-center ">
+    <h2 style="text-align: center">LIST CUSTOMER</h2>
+    <hr style="width: 30%;background-color: #046056" size="10px">
+</div>
+<div class="row container-fluid ">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">NAME</th>
+            <th scope="col">DATE OF BIRTH</th>
+            <th scope="col">GENDER</th>
+            <th scope="col">ID CARD</th>
+            <th scope="col">PHONE NUMBER</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">ADDRESS</th>
+            <th scope="col">CUSTOMER TYPE NAME</th>
+            <th scope="col">EDIT</th>
+            <th scope="col">DELETE</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr>
+            <th scope="row">1</th>
+            <td>Nguyễn Văn Thiên Ân</td>
+            <td>1989-04-05</td>
+            <td>Nam</td>
+            <td>451523025</td>
+            <td>0905022345</td>
+            <td>ngiueasdkud@gmail.com</td>
+            <td>k164 Nguyễn Chánh, Liên chiểu, Đà Nẵng</td>
+            <td>Diamond</td>
+            <td>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal2">
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    delete
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Phạm Tuấn</td>
+            <td>1999-10-01</td>
+            <td>Nam</td>
+            <td>166822532</td>
+            <td>0775088562</td>
+            <td>numberssonegamil.com</td>
+            <td>95 Hồ Nghinh, Hải Châu, Đà Nẵng</td>
+            <td>Gold</td>
+            <td>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal2">
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    delete
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Tôn Nữ Kim Ngân</td>
+            <td>1980-05-10</td>
+            <td>Nữ</td>
+            <td>2525252525</td>
+            <td>0898982362</td>
+            <td>supperman2gmail.com</td>
+            <td>252 Trường Chinh, Thanh Khê, Đà Nẵng</td>
+            <td>Member</td>
+            <td>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal2">
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+            data-bs-target="#exampleModal3">
+        ADD CUSTOMER
+    </button>
+</div>
+<div class="row container-fluid" style="background-color: #addccf ;justify-content: space-evenly">
+    <div class="col-lg-2" style="background-color:#f3f3f3;margin-left: 200px ">
+        <h2 style="color: #cbbe73;margin-top: 30px">Hướng Dẫn Di Chuyển</h2>
+        <p>Khu nghỉ dưỡng Furama là cơ sở hàng đầu để khám phá một trong những điểm đến hấp dẫn nhất Châu Á. Chỉ cách Đà
+            Nẵng một quãng lái xe ngắn là bốn Di sản Văn hóa Thế giới được UNESCO công nhận:</p>
+        <h5 style="color: #cbbe73">Địa điểm</h5>
+        <ol class="list-group list-group-numbered" style="margin-bottom: 30px">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Cố Đô Huế</div>
+                </div>
+                <span class="badge bg-primary rounded-pill">2 Tiếng</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Phố CỔ Hội An</div>
+                </div>
+                <span class="badge bg-primary rounded-pill">30 Phút</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Thánh Địa Mỹ Sơn</div>
+                </div>
+                <span class="badge bg-primary rounded-pill">90 Phút</span>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+        <ul style="margin-top: 30px">
+            <li>Giá Công Bố</li>
+            <li>Lifestyle Blog</li>
+            <li>Tuyển Dụng</li>
+            <li>Liên Hệ</li>
+        </ul>
+    </div>
+    <div class="col-lg-2" style="margin-right: 200px">
+        <h5 style="color: #cbbe73;margin-top: 30px">Liên Hệ</h5>
+        <ul style="list-style: none">
+            <li>
+                <img src="icons8-visit-30.png" height="30"
+                     width="30"/>
+            </li>
+            <li>103-105 Vo Nguyen Giap Street, Khue My ward, Ngu Hanh Son district, Da Nang city, Viet Nam</li>
+            <li>Tel: 84-236-3847-333</li>
+            <li>email:reservation@furamavietnam.com</li>
+            <li>GDS Codes: Amadeus-GD DADFUR, Galileo/Apollo-GD 16236, Sabre-GD 032771, Worldspan- GD DADFU</li>
+        </ul>
+    </div>
+</div>
+!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete it</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Agree</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel2">Edit Customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-md">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                                <!--                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.-->
+                                <!--                                </div>-->
+                            </div>
+                            <div class="mb-3">
+                                <label for="DOB" class="form-label">Date Of Birth</label>
+                                <input type="datetime-local" class="form-control" id="DOB">
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <input type="text" class="form-control" id="gender">
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_card" class="form-label">ID Card</label>
+                                <input type="number" class="form-control" id="id_card">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="number" class="form-control" id="phone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="number" class="form-control" id="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="number" class="form-control" id="address">
+                            </div>
+                            <div class="mb-3">
+                                <label for="customer_type" class="form-label">Customer Type</label>
+                                <input type="text" class="form-control" id="customer_type">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel3">Add Customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="name2" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name2" aria-describedby="emailHelp">
+                                <!--                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.-->
+                                <!--                                </div>-->
+                            </div>
+                            <div class="mb-3">
+                                <label for="DOB2" class="form-label">Date Of Birth</label>
+                                <input type="number" class="form-control" id="DOB2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender2" class="form-label">Gender</label>
+                                <input type="number" class="form-control" id="gender2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_card2" class="form-label">ID Card</label>
+                                <input type="number" class="form-control" id="id_card2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone2" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phone2">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="email2" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="poor2" class="form-label">Poor Area</label>
+                                <input type="number" class="form-control" id="poor2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address2" class="form-label">Address</label>
+                                <input type="number" class="form-control" id="address2">
+                            </div>
+                            <div class="mb-3">
+                                <label class="col-form-label">Customer Type Name</label>
+                                <select class="form-control">
+                                    <option value="">Diamond</option>
+                                    <option value="">Gold</option>
+                                    <option value="">Member</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

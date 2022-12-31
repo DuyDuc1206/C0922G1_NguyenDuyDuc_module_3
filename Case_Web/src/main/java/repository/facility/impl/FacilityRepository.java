@@ -17,7 +17,7 @@ public class FacilityRepository implements IFacilityRepository {
     private final String SELECT_FACILITY = "select f.*, rt.*,ft.* from facility as f \n" +
             "join facility_type as ft on ft.facility_type_id = f.facility_type_id\n" +
             "join rent_type as rt on rt.rent_type_id = f.rent_type_id;";
-    private final String DELETE_FACILITY = "delete from facility where id = ?;";
+    private final String DELETE_FACILITY = "delete from facility where facility_id = ?;";
 
     @Override
     public List<Facility> selectAllFacility() {
@@ -58,7 +58,7 @@ public class FacilityRepository implements IFacilityRepository {
         try {
             PreparedStatement ps = connection.prepareStatement(DELETE_FACILITY);
             ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+            return ps.executeUpdate() >0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
