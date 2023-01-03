@@ -36,13 +36,7 @@ public class ProductServlet extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         String description = request.getParameter("description");
         String manufacturer = request.getParameter("manufacturer");
-//        Product product = new Product(id,name,price,description,manufacturer);
-        Product product = productService.selectProductById(id);
-        product.setId(id);
-        product.setName(name);
-        product.setPrice(price);
-        product.setDescription(description);
-        product.setManufacturer(manufacturer);
+        Product product = new Product(id,name,price,description,manufacturer);
         productService.editProduct(id,product);
         request.setAttribute("product",product);
         showList(request,response);
@@ -69,6 +63,9 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = productService.selectProductById(id);
+        request.setAttribute("product",product);
         try {
             request.getRequestDispatcher("/edit.jsp").forward(request,response);
         } catch (ServletException e) {

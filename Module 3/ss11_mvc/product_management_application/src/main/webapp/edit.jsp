@@ -14,29 +14,34 @@
 </head>
 <body>
 <div class="container">
-    <form action="/product?action=edit" method="post">
-        <div class="mb-3">
-            <label class="form-label">Id</label>
-            <input type="number" class="form-control" name="id">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="name">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Price</label>
-            <input type="number" class="form-control" name="price">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <input type="text" class="form-control" name="description">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Manufacturer</label>
-            <input type="text" class="form-control" name="manufacturer">
-        </div>
-        <button class="btn btn-sm btn-primary" type="submit">Save</button>
-    </form>
+    <div class="row">
+        <p class="text-center fs-2 fw-bold text-primary">Edit Product </p>
+    </div>
+    <div class="col-md-6 offset-md-3">
+        <form action="/product?action=edit" method="post">
+            <div class="mb-3" hidden>
+                <label class="form-label">Id</label>
+                <input type="number" class="form-control" name="id">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="number" class="form-control" name="price">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control" name="description">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Manufacturer</label>
+                <input type="text" class="form-control" name="manufacturer">
+            </div>
+            <button class="btn btn-sm btn-primary" type="submit">Save</button>
+        </form>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
