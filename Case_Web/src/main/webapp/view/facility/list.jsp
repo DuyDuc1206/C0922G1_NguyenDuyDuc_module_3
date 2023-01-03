@@ -190,18 +190,16 @@
             </div>
             <div class="modal-body">
                 <form action="/facility?action=insert" method="post" id="formAdd">
-                    <div class="d-flex justify-content-evenly ps-5">
-                        <c:forEach var="facilityType" items="${facilityTypeList}">
-                            <div class="col-md-3 ">
-                                <button class="btn btn-md btn-outline-secondary"
-                                        onclick="addFacility(${facilityType.getId()})"
-                                        name="facilityTypeId"
-                                        id="typeFacility"
-                                        value="${facilityType.getId()}">
-                                        ${facilityType.getName()}
-                                </button>
-                            </div>
-                        </c:forEach>
+                    <div class="d-flex justify-content-evenly ps-5" id="type">
+                        <input type="text" name="facilityIdType" id="valueType" hidden>
+                        <button  class="btn tbn-md btn-outline-secondary" onclick="addVilla()" >
+                            Villa
+                        </button>
+                        <button  class="btn tbn-md btn-outline-secondary" onclick="addHouse()" >
+                            House
+                        </button>
+                        <button class="btn tbn-md btn-outline-secondary" onclick="addRoom()" >Room
+                        </button>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Name</label>
@@ -260,6 +258,27 @@
 </div>
 
 <script>
+    function addVilla() {
+        document.getElementById("valueType").value = 1;
+        document.getElementById("addFacilityFree").style.display = 'none';
+        document.getElementById("addPoolArea").style.display = 'block';
+        document.getElementById("addNumberOfFloor").style.display = 'block';
+    }
+
+    function addHouse() {
+        document.getElementById("valueType").value = 2;
+        document.getElementById("addPoolArea").style.display = "none";
+        document.getElementById("addFacilityFree").style.display = 'block';
+        document.getElementById("addNumberOfFloor").style.display = 'block';
+    }
+
+    function addRoom() {
+        document.getElementById("valueType").value = 3;
+        document.getElementById("addFacilityFree").style.display = 'block';
+        document.getElementById("addPoolArea").style.display = "none";
+        document.getElementById("addNumberOfFloor").style.display = "none";
+    }
+
     function infoDelete(idDelete, nameDelete) {
         document.getElementById("deleteId").value = idDelete;
         document.getElementById("deleteName").innerText = nameDelete;
@@ -279,19 +298,6 @@
         document.getElementById("newRentTypeId").value = rentTypeId;
         debugger
         document.getElementById("newFacilityTypeId").value = facilityTypeId;
-    }
-
-    function addFacility(id) {
-        debugger
-        var check = document.getElementById("typeFacility").value = id;
-        if (check == 1) {
-            document.getElementById("addFacilityFree").style.display = "none";
-        } else if (check == 2) {
-            document.getElementById("addPoolArea").style.display = "none";
-        } else if (check == 3) {
-            document.getElementById("addPoolArea").style.display = "none";
-            document.getElementById("addNumberOfFloor").style.display = "none";
-        }
     }
 
     setTimeout(function () {

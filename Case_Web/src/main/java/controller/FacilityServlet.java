@@ -52,19 +52,19 @@ public class FacilityServlet extends HttpServlet {
         String description = request.getParameter("description");
         int poolArea = 0;
         String poolAreaStr = request.getParameter("poolArea");
-        if (poolAreaStr == null) {
+        if (poolAreaStr != null) {
             poolArea = Integer.parseInt(poolAreaStr);
         }
         int numberOfFloor = 0;
         String numberOfFloorStr = request.getParameter("numberOfFloor");
-        if (numberOfFloorStr == null) {
+        if (numberOfFloorStr != null) {
             numberOfFloor = Integer.parseInt(numberOfFloorStr);
         }
         String facilityFree = request.getParameter("facilityFree");
 
         int rentTypeId = Integer.parseInt(request.getParameter("rentTypeId"));
         RentType rentType = new RentType(rentTypeId);
-        int facilityTypeId = Integer.parseInt(request.getParameter("facilityTypeId"));
+        int facilityTypeId = Integer.parseInt(request.getParameter("facilityIdType"));
         FacilityType facilityType = new FacilityType(facilityTypeId);
         Facility facility = new Facility(name,area,cost,maxPeople,standardRoom,description,poolArea,numberOfFloor,facilityFree,rentType,facilityType);
         boolean check = facilityService.insertFacility(facility);

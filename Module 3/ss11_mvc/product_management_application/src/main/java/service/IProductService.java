@@ -9,9 +9,9 @@ public interface IProductService {
 
     boolean addProduct(Product product);
 
-    boolean editProduct(Product product);
+   void editProduct(int id,Product product);
 
-    boolean deleteProduct(int id);
+    void deleteProduct(int id);
 
     Product selectProductById(int id);
 

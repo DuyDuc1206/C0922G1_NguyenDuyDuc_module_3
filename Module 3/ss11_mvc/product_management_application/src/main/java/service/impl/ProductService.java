@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ProductService implements IProductService {
     private IProductRepository productRepository = new ProductRepository();
+
     @Override
     public List<Product> selectAllProduct() {
         return productRepository.selectAllProduct();
@@ -20,18 +21,18 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public boolean editProduct(Product product) {
-        return false;
+    public void editProduct(int id,Product product) {
+        productRepository.editProduct(id,product);
     }
 
     @Override
-    public boolean deleteProduct(int id) {
-        return false;
+    public void deleteProduct(int id) {
+        productRepository.deleteProduct(id);
     }
 
     @Override
     public Product selectProductById(int id) {
-        return null;
+        return productRepository.selectProductById(id);
     }
 
     @Override
