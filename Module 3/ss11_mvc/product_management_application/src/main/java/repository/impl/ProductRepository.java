@@ -21,15 +21,15 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public boolean addProduct(Product product) {
-        return false;
+    public void addProduct(Product product) {
+        productList.add(product);
     }
 
     @Override
-    public void editProduct(int id,Product product) {
-        for (int i = 0; i <productList.size() ; i++) {
-            if (productList.get(i).getId()==id){
-                productList.set(id,product);
+    public void editProduct(int id, Product product) {
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getId() == id) {
+                productList.set(id, product);
             }
         }
     }
@@ -42,8 +42,8 @@ public class ProductRepository implements IProductRepository {
     @Override
     public Product selectProductById(int id) {
         Product product = null;
-        for (int i = 0; i <productList.size() ; i++) {
-            if(productList.get(i).getId()==id){
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getId() == id) {
                 product = productList.get(i);
             }
         }

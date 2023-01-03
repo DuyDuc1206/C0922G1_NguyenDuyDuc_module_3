@@ -16,6 +16,9 @@
 <body>
 <div class="container">
     <div class="row">
+        <p><a href="/product?action=add">Add Product</a></p>
+    </div>
+    <div class="row">
         <p class="fs-3 text-danger">${mess}</p>
     </div>
     <div class="row">

@@ -16,13 +16,13 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public boolean addProduct(Product product) {
-        return false;
+    public void addProduct(Product product) {
+        productRepository.addProduct(product);
     }
 
     @Override
-    public void editProduct(int id,Product product) {
-        productRepository.editProduct(id,product);
+    public void editProduct(int id, Product product) {
+        productRepository.editProduct(id, product);
     }
 
     @Override
