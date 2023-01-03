@@ -102,7 +102,7 @@ public class Facility {
         this.description = description;
     }
 
-    public double getPoolArea() {
+    public int getPoolArea() {
         return poolArea;
     }
 

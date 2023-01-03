@@ -16,7 +16,16 @@
 <%@include file="/view/interface/header.jsp" %>
 
 <div>
-    <p id="mess" class="text-center text-danger fs-2" >${mess}</p>
+    <p id="mess" class="text-center text-danger fs-2">${mess}</p>
+</div>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addFacility">
+                ADD FACILITY <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -57,7 +66,11 @@
                     <td><c:out value="${facility.getRentType().getName()}"/></td>
                     <td><c:out value="${facility.getFacilityType().getName()}"/></td>
                     <td>
-                        <button></button>
+                        <button onclick="infoEdit('${facility.getId()}','${facility.getName()}','${facility.getArea()}','${facility.getCost()}','${facility.getMaxPeople()}',
+                                '${facility.getStandardRoom()}','${facility.getDescription()}','${facility.getPoolArea()}','${facility.getNumberOfFloor()}','${facility.getFacilityFree()}',
+                                '${facility.getRentType().getId()}','${facility.getFacilityType().getId()}')"
+                                class="btn btn-md btn-outline-secondary" data-bs-toggle="modal"
+                                data-bs-target="#editFacility"><i class="fas fa-edit"></i></button>
                         <button onclick="infoDelete('${facility.getId()}','${facility.getName()}')"
                                 class="btn btn-md btn-danger ms-1" data-bs-toggle="modal"
                                 data-bs-target="#deleteFacility"><i
@@ -92,15 +105,198 @@
     </div>
 </div>
 
+<!-- Modal edit-->
+<div class="modal fade" id="editFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Facility Information</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/facility?action=edit" method="post" id="myform">
+                    <input type="text" id="id" name="id" hidden>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="newName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Area</label>
+                        <input type="number" class="form-control" name="area" id="newArea" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cost</label>
+                        <input type="number" class="form-control" name="cost" id="newCost" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cost</label>
+                        <input type="number" class="form-control" name="maxPeople" id="newMaxPeople" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Standard Room</label>
+                        <input type="text" class="form-control" name="standardRoom" id="newStandardRoom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description" id="newDescription" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Pool Area</label>
+                        <input type="number" class="form-control" name="poolArea" id="newPoolArea">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Number Of Floor</label>
+                        <input type="number" class="form-control" name="numberOfFloor" id="newNumberOfFloor">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Facility Free</label>
+                        <input type="text" class="form-control" name="facilityFree" id="newFacilityFree">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rent Type Name</label>
+                        <select class="form-select"
+                                aria-label="Example select with button addon" id="newRentTypeId"
+                                name="rentTypeId">
+                            <c:forEach var="rentType" items="${rentTypeList}">
+                                <option value="${rentType.getId()}">${rentType.getName()}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Facility Type Name</label>
+                        <select class="form-select"
+                                aria-label="Example select with button addon" id="newFacilityTypeId"
+                                name="facilityTypeId">
+                            <c:forEach var="facilityType" items="${facilityTypeList}">
+                                <option value="${facilityType.getId()}">${facilityType.getName()}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger" form="myform">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--Modal add--%>
+<div class="modal fade" id="addFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Facility Information</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/facility?action=insert" method="post" id="formAdd">
+                    <div class="d-flex justify-content-evenly ps-5">
+                        <c:forEach var="facilityType" items="${facilityTypeList}">
+                            <div class="col-md-3 ">
+                                <button class="btn btn-md btn-outline-secondary"
+                                        onclick="addFacility(${facilityType.getId()})"
+                                        name="facilityTypeId"
+                                        id="typeFacility"
+                                        value="${facilityType.getId()}">
+                                        ${facilityType.getName()}
+                                </button>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Area</label>
+                        <input type="number" class="form-control" name="area" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cost</label>
+                        <input type="number" class="form-control" name="cost" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Max People</label>
+                        <input type="number" class="form-control" name="maxPeople" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Standard Room</label>
+                        <input type="text" class="form-control" name="standardRoom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description" required>
+                    </div>
+                    <div class="mb-3" id="addPoolArea">
+                        <label class="form-label">Pool Area</label>
+                        <input type="number" class="form-control" name="poolArea">
+                    </div>
+                    <div class="mb-3" id="addNumberOfFloor">
+                        <label class="form-label">Number Of Floor</label>
+                        <input type="number" class="form-control" name="numberOfFloor">
+                    </div>
+                    <div class="mb-3" id="addFacilityFree">
+                        <label class="form-label">Facility Free</label>
+                        <input type="text" class="form-control" name="facilityFree">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rent Type Name</label>
+                        <select class="form-select"
+                                aria-label="Example select with button addon"
+                                name="rentTypeId">
+                            <c:forEach var="rentType" items="${rentTypeList}">
+                                <option value="${rentType.getId()}">${rentType.getName()}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="Submit" class="btn btn-danger" form="formAdd">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function infoDelete(idDelete, nameDelete) {
         document.getElementById("deleteId").value = idDelete;
         document.getElementById("deleteName").innerText = nameDelete;
     }
 
+    function infoEdit(id, name, area, cost, maxPeople, standardRoom, description, poolArea, numberOfFloor, facilityFree, rentTypeId, facilityTypeId) {
+        document.getElementById("id").value = id;
+        document.getElementById("newName").value = name;
+        document.getElementById("newArea").value = area;
+        document.getElementById("newCost").value = cost;
+        document.getElementById("newMaxPeople").value = maxPeople;
+        document.getElementById("newStandardRoom").value = standardRoom;
+        document.getElementById("newDescription").value = description;
+        document.getElementById("newPoolArea").value = poolArea;
+        document.getElementById("newNumberOfFloor").value = numberOfFloor;
+        document.getElementById("newFacilityFree").value = facilityFree;
+        document.getElementById("newRentTypeId").value = rentTypeId;
+        debugger
+        document.getElementById("newFacilityTypeId").value = facilityTypeId;
+    }
+
+    function addFacility(id) {
+        debugger
+        var check = document.getElementById("typeFacility").value = id;
+        if (check == 1) {
+            document.getElementById("addFacilityFree").style.display = "none";
+        } else if (check == 2) {
+            document.getElementById("addPoolArea").style.display = "none";
+        } else if (check == 3) {
+            document.getElementById("addPoolArea").style.display = "none";
+            document.getElementById("addNumberOfFloor").style.display = "none";
+        }
+    }
+
     setTimeout(function () {
         document.getElementById("mess").style.display = "none";
-    },3000)
+    }, 3000)
 </script>
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script src="datatables/js/jquery.dataTables.min.js"></script>
@@ -108,9 +304,10 @@
 <script>
     $(document).ready(function () {
         $('#tableFacility').dataTable({
-            "dom": 'lrtip',
+            "dom": 'frtlip',
             "lengthChange": false,
-            "pageLength": 10
+            "pageLength": 10,
+            "bInfo": false
         });
     });
 </script>

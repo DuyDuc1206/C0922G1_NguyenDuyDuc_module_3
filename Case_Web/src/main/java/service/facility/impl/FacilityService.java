@@ -20,4 +20,14 @@ public class FacilityService implements IFacilityService {
     public boolean deleteFacilityById(int id) {
         return facilityRepository.deleteFacilityById(id);
     }
+
+    @Override
+    public boolean updateFacilityById(Facility facility) {
+        return facilityRepository.updateFacilityById(facility);
+    }
+
+    @Override
+    public boolean insertFacility(Facility facility) {
+        return facilityRepository.insertFacility(facility);
+    }
 }

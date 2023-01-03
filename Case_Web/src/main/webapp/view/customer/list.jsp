@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@include file="/view/interface/header.jsp" %>
-<div><p id="mess" class="text-center fs-5 text-danger">${mess}</p></div>
+<div><p id="mess" class="text-center fs-2 text-danger">${mess}</p></div>
 <div class="container mt-2">
     <div class="row justify-content-between">
         <div class="col-md-2">
@@ -57,14 +57,14 @@
         <c:forEach var="customer" items="${customerList}" varStatus="status">
             <tr>
                 <th scope="row"><c:out value="${status.count}"/></th>
-                <td><c:out value="${customer.getName()}"/></td>
-                <td><c:out value="${customer.getDateOfBirth()}"/></td>
-                <td><c:out value="${customer.getGender()}"/></td>
-                <td><c:out value="${customer.getIdCard()}"/></td>
-                <td><c:out value="${customer.getPhoneNumber()}"/></td>
-                <td><c:out value="${customer.getAddress()}"/></td>
-                <td><c:out value="${customer.getEmail()}"/></td>
-                <td><c:out value="${customer.getCustomerType().getName()}"/></td>
+                <td>${customer.getName()}</td>
+                <td>${customer.getDateOfBirth()}</td>
+                <td>${customer.getGender()=='Man'?'Man':'Woman'}</td>
+                <td>${customer.getIdCard()}</td>
+                <td>${customer.getPhoneNumber()}</td>
+                <td>${customer.getAddress()}</td>
+                <td>${customer.getEmail()}</td>
+                <td>${customer.getCustomerType().getName()}</td>
                 <td>
                     <button onclick="infoEdit('${customer.getId()}','${customer.getName()}','${customer.getDateOfBirth()}',
                             '${customer.getGender()}','${customer.getIdCard()}','${customer.getPhoneNumber()}','${customer.getAddress()}',
@@ -106,14 +106,13 @@
 
 <!-- Modal edit-->
 <div class="modal fade" id="editCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Customer Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/customer?action=edit" method="post">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form action="/customer?action=edit" method="post" id="myform">
                     <input type="text" id="id" name="id" hidden>
                     <div class="mb-3">
                         <label class="form-label">Name</label>
@@ -125,8 +124,8 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Gender: </label>
-                        <label><input type="radio" name="gender" value="Man" id="male">Man</label>
-                        <label><input type="radio" name="gender" value="Woman" id="female">Woman</label>
+                        <label><input id="man" type="radio" name="gender" value="Man">Man</label>
+                        <label><input id="woman" type="radio" name="gender" value="Woman">Woman</label>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID Card</label>
@@ -154,12 +153,12 @@
                             </c:forEach>
                         </select>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Save changes</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger" form="myform">Save changes</button>
+            </div>
         </div>
     </div>
 </div>
@@ -174,26 +173,26 @@
             </div>
             <form action="/customer?action=insert" method="post">
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">Name</label>
                         <input type="text" value="${customer.getName()}" class="form-control" name="name" required>
                         <c:if test="${!errorMap.isEmpty}">
                             <p style="color: red">${errorMap.get("name")}</p>
                         </c:if>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">DOB</label>
                         <input type="date" value="${customer.getDateOfBirth()}" class="form-control"
                                name="dateOfBirth" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">Gender</label>
-                        <select class="form-select" name="gender" id="">
-                            <option value="Man" ${customer.getGender()==true?"checked":""}>Man</option>
-                            <option value="Woman" ${customer.getGender()==true?"checked":""}>Woman</option>
+                        <select class="form-select" name="gender">
+                            <option value="Man" ${customer.getGender()=="Man"?"checked":""}>Man</option>
+                            <option value="Woman" ${customer.getGender()=="Woman"?"checked":""}>Woman</option>
                         </select>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">ID card</label>
                         <input type="text" value="${customer.getIdCard()}" class="form-control" name="idCard"
                                required>
@@ -201,7 +200,7 @@
                             <p style="color: red">${errorMap.get("idCard")}</p>
                         </c:if>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">Phone number</label>
                         <input type="text" value="${customer.getPhoneNumber()}"
                                class="form-control" name="phoneNumber" required>
@@ -209,12 +208,12 @@
                             <p style="color: red">${errorMap.get("phoneNumber")}</p>
                         </c:if>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">Address</label>
                         <input type="text" value="${customer.getAddress()}" class="form-control" name="address"
                                required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">Email</label>
                         <input type="text" value="${customer.getEmail()}" pattern="[a-zA-Z]\w+@gmail\.com"
                                class="form-control" name="email"
@@ -223,7 +222,7 @@
                             <p style="color: red">${errorMap.get("email")}</p>
                         </c:if>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label class="form-label">Customer type</label>
                         <select class="form-select" id="inputGroupSelect03"
                                 aria-label="Example select with button addon" name="customerTypeName">
@@ -260,11 +259,11 @@
         document.getElementById("newCustomerTypeId").value = customerTypeId;
         debugger
         if (gender == "Man") {
-            document.getElementById("male").checked = true;
-            document.getElementById("female").checked = false;
-        } else if (gender == "Woman") {
-            document.getElementById("male").checked = false;
-            document.getElementById("female").checked = true;
+            document.getElementById("man").checked = true;
+            document.getElementById("woman").checked = false;
+        } else {
+            document.getElementById("man").checked = false;
+            document.getElementById("woman").checked = true;
         }
     }
 
@@ -279,9 +278,11 @@
 <script>
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
-            "dom": 'lrtip',
-            "lengthChange": false,
-            "pageLength": 10
+            dom: 'lrtip',
+            lengthChange: false,
+            pageLength: 10,
+            bInfo: false,
+            // "pagingType": 'full_numbers',
         });
     });
 </script>

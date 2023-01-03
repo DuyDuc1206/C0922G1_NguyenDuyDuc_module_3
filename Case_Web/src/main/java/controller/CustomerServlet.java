@@ -87,7 +87,7 @@ public class CustomerServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String dateOfBirth = request.getParameter("dateOfBirth");
-        String gender = request.getParameter("gender");
+        String gender =request.getParameter("gender");
         String idCard = request.getParameter("idCard");
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");

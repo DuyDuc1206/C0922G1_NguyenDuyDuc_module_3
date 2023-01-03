@@ -18,6 +18,20 @@ public class FacilityRepository implements IFacilityRepository {
             "join facility_type as ft on ft.facility_type_id = f.facility_type_id\n" +
             "join rent_type as rt on rt.rent_type_id = f.rent_type_id;";
     private final String DELETE_FACILITY = "delete from facility where facility_id = ?;";
+    private final String UPDATE_FACILITY = "update facility set facility_name = ?,\n" +
+            "area = ?,\n" +
+            "cost = ?,\n" +
+            "max_people = ?, \n" +
+            "standard_room = ?,\n" +
+            "description_other_convenience = ?,\n" +
+            "pool_area = ?, \n" +
+            "number_of_floor=?,\n" +
+            "facility_free = ?,\n" +
+            "rent_type_id = ?,\n" +
+            "facility_type_id = ?\n" +
+            "where facility_id =?;";
+    private static final String ADD_FACILITY = "insert into facility (facility_name,area,cost,max_people,standard_room,description_other_convenience,pool_area,number_of_floor,facility_free,rent_type_id,facility_type_id) \n" +
+            "values (?,?,?,?,?,?,?,?,?,?,?);";
 
     @Override
     public List<Facility> selectAllFacility() {
@@ -58,10 +72,58 @@ public class FacilityRepository implements IFacilityRepository {
         try {
             PreparedStatement ps = connection.prepareStatement(DELETE_FACILITY);
             ps.setInt(1, id);
-            return ps.executeUpdate() >0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return false;
     }
+
+    @Override
+    public boolean updateFacilityById(Facility facility) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(UPDATE_FACILITY);
+            ps.setString(1, facility.getName());
+            ps.setInt(2, facility.getArea());
+            ps.setDouble(3, facility.getCost());
+            ps.setInt(4, facility.getMaxPeople());
+            ps.setString(5, facility.getStandardRoom());
+            ps.setString(6, facility.getDescription());
+            ps.setInt(7, facility.getPoolArea());
+            ps.setInt(8, facility.getNumberOfFloor());
+            ps.setString(9, facility.getFacilityFree());
+            ps.setInt(10, facility.getRentType().getId());
+            ps.setInt(11, facility.getFacilityType().getId());
+            ps.setInt(12, facility.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean insertFacility(Facility facility) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(ADD_FACILITY);
+            ps.setString(1, facility.getName());
+            ps.setInt(2, facility.getArea());
+            ps.setDouble(3, facility.getCost());
+            ps.setInt(4, facility.getMaxPeople());
+            ps.setString(5, facility.getStandardRoom());
+            ps.setString(6, facility.getDescription());
+            ps.setInt(7, facility.getPoolArea());
+            ps.setInt(8, facility.getNumberOfFloor());
+            ps.setString(9, facility.getFacilityFree());
+            ps.setInt(10, facility.getRentType().getId());
+            ps.setInt(11, facility.getFacilityType().getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
 }
