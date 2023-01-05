@@ -4,7 +4,9 @@ import model.User;
 import repository.BaseRepository;
 import repository.IUserRepository;
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +14,15 @@ public class UserRepository implements IUserRepository {
     private final String SELECT_BY_COUNTRY = "select * from users where country like ?";
     //    private final String SELECT_ALL_USER = "select * from users ";
     private final String SELECT_ALL_USER = "call get_all_user(); ";
-//    private final String DELETE_USER = "delete from users where id = ?;";
+    //    private final String DELETE_USER = "delete from users where id = ?;";
     private final String DELETE_USER = "call delete_user(?);";
     //    private final String EDIT_USER = "update users set name = ?,email= ?, country =? where id = ?;";
     private final String EDIT_USER = "call edit_user(?,?,?,?);";
     private final String ADD_USER = "insert into users(`name`,email,country) values(?,?,?);";
+    private final String SP_ADD_USER = "call add_user(?,?,?)";
+    private final String UPDATE_USER_SQL = "call update_info(?,?,?,?);";
+    private final String SQL_TABLE_DROP = "drop table ?; ";
+    private final String SQL_TABLE_CREATE = "call add_user(?,?,?)";
 
     @Override
     public List<User> selectAllUser() {
@@ -106,5 +112,38 @@ public class UserRepository implements IUserRepository {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void addUserTransaction() {
+        try (Connection connection = BaseRepository.getConnection();
+
+             Statement statement = connection.createStatement();
+             PreparedStatement preparedStatement = connection.prepareStatement(SP_ADD_USER);
+             PreparedStatement preparedStatement1 = connection.prepareStatement(UPDATE_USER_SQL)) {
+
+            statement.execute(SQL_TABLE_DROP);
+            statement.execute(SQL_TABLE_CREATE);
+
+            // start transaction block
+            connection.setAutoCommit(false); // default true
+
+            // Run list of insert commands
+            preparedStatement.setString(1, "Duy");
+            preparedStatement.setBigDecimal(2, new BigDecimal(10));
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.execute();
+            preparedStatement.setString(1, "Dung");
+            preparedStatement.setBigDecimal(2, new BigDecimal(20));
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.execute();
+            preparedStatement1.setBigDecimal(2, new BigDecimal(999.99));
+            preparedStatement1.setString(2, "Quynh");
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

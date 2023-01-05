@@ -10,4 +10,5 @@ public interface IUserService {
     List<User> selectUserCountry(String country);
     boolean editUser(User user);
     boolean addUser(User user);
+    void addUserTransaction();
 }

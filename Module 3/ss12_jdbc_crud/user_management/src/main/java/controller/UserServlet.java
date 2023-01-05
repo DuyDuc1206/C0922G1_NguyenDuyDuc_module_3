@@ -94,10 +94,17 @@ public class UserServlet extends HttpServlet {
         if (action==null){
             action="";
         } switch (action){
+            case "test-use-tran":
+                testUseTran(request, response);
+                break;
             default:
                 showList(request,response);
                 break;
         }
+    }
+
+    private void testUseTran(HttpServletRequest request, HttpServletResponse response) {
+        userService.addUserTransaction();
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) {

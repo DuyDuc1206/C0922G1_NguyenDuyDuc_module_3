@@ -34,4 +34,9 @@ public class UserService implements IUserService {
     public boolean addUser(User user) {
         return userRepository.addUser(user);
     }
+
+    @Override
+    public void addUserTransaction() {
+        userRepository.addUserTransaction();
+    }
 }

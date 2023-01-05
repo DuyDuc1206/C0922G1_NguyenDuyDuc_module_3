@@ -24,8 +24,8 @@
     <div class="row">
         <p class="text-center fs-2 fw-bold ">All Employee Details</p>
     </div>
-    <div class="row">
-        <table id="tableEmployee" class="table table-bordered table-striped">
+    <div class="row table-responsive">
+        <table class="table table-bordered table-striped align-middle ">
             <thead>
             <tr>
                 <th class="col">No.</th>
@@ -59,8 +59,8 @@
                     <td>${employee.getDivision().getName()}</td>
                     <td>${employee.getUser().getUserName()}</td>
                     <td>
-                        <button class="btn btn-outline-secondary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-outline-danger ms-1"><i
+                        <button class="btn btn-md btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-md btn-outline-danger ms-1"><i
                                 class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
@@ -73,17 +73,7 @@
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script src="datatables/js/jquery.dataTables.min.js"></script>
 <script src="datatables/js/dataTables.bootstrap5.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#tableEmployee').dataTable({
-            "dom": 'frtlip',
-            "lengthChange": false,
-            "pageLength": 10,
-            "bInfo": false,
-            // "scrollX":true
-        });
-    });
-</script>
+
 <%@include file="/view/interface/footer.jsp" %>
 </body>
 </html>

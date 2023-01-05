@@ -11,4 +11,5 @@ public interface IUserRepository {
        boolean deleteUser(int id);
        boolean editUser(User user);
        boolean addUser(User user);
+       void addUserTransaction();
 }

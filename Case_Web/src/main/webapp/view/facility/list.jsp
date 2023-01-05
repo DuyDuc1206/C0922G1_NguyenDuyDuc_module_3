@@ -31,7 +31,7 @@
     <div class="row">
         <p class="text-center fs-2 fw-bold">All Facility Details</p>
     </div>
-    <div class="row">
+    <div class="row ">
         <table id="tableFacility" class="table table-striped table-bordered">
             <thead>
             <tr>
