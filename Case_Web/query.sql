@@ -50,4 +50,28 @@ rent_type_id = 2,
 facility_type_id = 2
 where facility_id = 3;
 
+insert into `facility`(facility_name,area,cost,max_people,standard_room,description_other_convenience,pool_area,number_of_floor,facility_free,rent_type_id,facility_type_id)
+ values
+	('1', 'Villa Beach Front', '25000', '1000000', '10', 'vip', 'Có hồ bơi', 500, '4', null, '3', '1');
+
+
+select e.*,p.*,ed.*,d.* from employee as e 
+join position as p on p.position_id = e.position_id
+join education_degree as ed on ed.education_degree_id = e.education_degree_id
+join division as d on d.division_id = e.division_id;
+
+
+delimiter //
+drop procedure if exists get_all_employee;
+create procedure get_all_employee()
+begin
+select e.*,p.*,ed.*,d.*,u.* from employee as e 
+join position as p on p.position_id = e.position_id
+join education_degree as ed on ed.education_degree_id = e.education_degree_id
+join division as d on d.division_id = e.division_id
+join `user` as u on u.username = e.username;
+end //
+delimiter ;
+
+call get_all_employee();
 

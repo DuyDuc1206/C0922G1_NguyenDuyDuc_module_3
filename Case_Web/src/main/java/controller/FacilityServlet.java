@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.webkit.dom.DocumentImpl;
 import model.facility.Facility;
 import model.facility.FacilityType;
 import model.facility.RentType;
@@ -43,7 +42,7 @@ public class FacilityServlet extends HttpServlet {
         }
     }
 
-    private void insertFacility(HttpServletRequest request, HttpServletResponse response) {
+    private void insertFacility(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         int area = Integer.parseInt(request.getParameter("area"));
         double cost = Double.parseDouble(request.getParameter("cost"));
@@ -52,12 +51,12 @@ public class FacilityServlet extends HttpServlet {
         String description = request.getParameter("description");
         int poolArea = 0;
         String poolAreaStr = request.getParameter("poolArea");
-        if (poolAreaStr != null) {
+        if (poolAreaStr != "") {
             poolArea = Integer.parseInt(poolAreaStr);
         }
         int numberOfFloor = 0;
         String numberOfFloorStr = request.getParameter("numberOfFloor");
-        if (numberOfFloorStr != null) {
+        if (numberOfFloorStr != "") {
             numberOfFloor = Integer.parseInt(numberOfFloorStr);
         }
         String facilityFree = request.getParameter("facilityFree");
@@ -72,8 +71,9 @@ public class FacilityServlet extends HttpServlet {
         if (!check){
             mess="Add Failed!";
         }
-        request.setAttribute("mess",mess);
-        showList(request,response);
+        request.getSession().setAttribute("mess",mess);
+        //showList(request,response);
+        response.sendRedirect("/facility");
 
     }
 

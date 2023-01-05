@@ -4,18 +4,18 @@ import model.User;
 import repository.BaseRepository;
 import repository.IUserRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository implements IUserRepository {
     private final String SELECT_BY_COUNTRY = "select * from users where country like ?";
-    private final String SELECT_ALL_USER = "select * from users ";
-    private final String DELETE_USER = "delete from users where id = ?;";
-    private final String EDIT_USER = "update users set name = ?,email= ?, country =? where id = ?;";
+    //    private final String SELECT_ALL_USER = "select * from users ";
+    private final String SELECT_ALL_USER = "call get_all_user(); ";
+//    private final String DELETE_USER = "delete from users where id = ?;";
+    private final String DELETE_USER = "call delete_user(?);";
+    //    private final String EDIT_USER = "update users set name = ?,email= ?, country =? where id = ?;";
+    private final String EDIT_USER = "call edit_user(?,?,?,?);";
     private final String ADD_USER = "insert into users(`name`,email,country) values(?,?,?);";
 
     @Override
@@ -23,8 +23,9 @@ public class UserRepository implements IUserRepository {
         List<User> userList = new ArrayList<>();
         Connection connection = BaseRepository.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USER + "order by name");
-            ResultSet rs = ps.executeQuery();
+//            PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USER + "order by name");
+            CallableStatement cs = connection.prepareCall(SELECT_ALL_USER);
+            ResultSet rs = cs.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -65,9 +66,10 @@ public class UserRepository implements IUserRepository {
     public boolean deleteUser(int id) {
         Connection connection = BaseRepository.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement(DELETE_USER);
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+//            PreparedStatement ps = connection.prepareStatement(DELETE_USER);
+            CallableStatement cs = connection.prepareCall(DELETE_USER);
+            cs.setInt(1, id);
+            return cs.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -78,12 +80,13 @@ public class UserRepository implements IUserRepository {
     public boolean editUser(User user) {
         Connection connection = BaseRepository.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement(EDIT_USER);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getCountry());
-            ps.setInt(4, user.getId());
-            return ps.executeUpdate() > 0;
+//            PreparedStatement ps = connection.prepareStatement(EDIT_USER);
+            CallableStatement cs = connection.prepareCall(EDIT_USER);
+            cs.setString(1, user.getName());
+            cs.setString(2, user.getEmail());
+            cs.setString(3, user.getCountry());
+            cs.setInt(4, user.getId());
+            return cs.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -95,9 +98,9 @@ public class UserRepository implements IUserRepository {
         Connection connection = BaseRepository.getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(ADD_USER);
-            ps.setString(1,user.getName());
-            ps.setString(2,user.getEmail());
-            ps.setString(3,user.getCountry());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getCountry());
             return ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

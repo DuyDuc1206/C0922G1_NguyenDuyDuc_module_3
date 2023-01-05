@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent ">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item me-4">
-                    <a class="nav-link " aria-current="page" href="/view/employee/list.jsp" >Employee</a>
+                    <a class="nav-link " aria-current="page" href="/employee" >Employee</a>
                 </li>
                 <li class="nav-item me-4">
                     <a class="nav-link " href="/customer?action=list" >Customer</a>
