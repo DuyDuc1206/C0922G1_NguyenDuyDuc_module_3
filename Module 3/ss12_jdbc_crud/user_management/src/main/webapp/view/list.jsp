@@ -31,6 +31,10 @@
             <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Insert User
             </button>
         </div>
+        <div class="col-md-3">
+            <button class="btn btn-sm btn-primary" onclick="location.href='/user?action=addCall'">Add User
+            </button>
+        </div>
         <div class="col-md-1"><a href="/user">Return List</a></div>
     </div>
     <div class="row">
@@ -155,6 +159,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function infoDelete(id, name) {
         document.getElementById("deleteId").value = id;

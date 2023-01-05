@@ -32,7 +32,29 @@ public class UserServlet extends HttpServlet {
             case "add":
                 addUser(request,response);
                 break;
+            case "addCall":
+                addCallUser(request,response);
             default:
+        }
+    }
+
+    private void addCallUser(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String country = request.getParameter("country");
+        User user = new User(id, name, email, country);
+        boolean check = userService.addUser(user);
+        String mess = "Create Successfully";
+        if (check) {
+            mess = "Create Failed";
+        }
+
+        request.setAttribute("mess", mess);
+        try {
+            request.getRequestDispatcher("user/createCall.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -94,12 +116,25 @@ public class UserServlet extends HttpServlet {
         if (action==null){
             action="";
         } switch (action){
-            case "test-use-tran":
+            case "testUseTran":
                 testUseTran(request, response);
+                break;
+            case "addCall":
+                ShowInputFormCall(request,response);
                 break;
             default:
                 showList(request,response);
                 break;
+        }
+    }
+
+    private void ShowInputFormCall(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.getRequestDispatcher("user/createCall.jsp").forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
