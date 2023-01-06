@@ -14,7 +14,9 @@
 </head>
 <body>
 <%@include file="/view/interface/header.jsp" %>
-
+<div class="container">
+    <p id="mess" class="text-center text-danger fs-4 ">${mess}</p>
+</div>
 <div class="container mt-2">
     <div class="row col-md-2">
         <button class="btn btn-outline-primary">Add Employee <i class="fas fa-plus"></i></button>
@@ -60,7 +62,7 @@
                     <td>${employee.getUser().getUserName()}</td>
                     <td>
                         <button class="btn btn-md btn-outline-secondary"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-md btn-outline-danger ms-1"><i
+                        <button onclick="infoDelete('${employee.getId()}','${employee.getName()}')" class="btn btn-md btn-outline-danger ms-1" data-bs-toggle="modal" data-bs-target="#deleteEmployee"><i
                                 class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
@@ -69,6 +71,39 @@
         </table>
     </div>
 </div>
+
+<!-- Modal delete-->
+<div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/employee?action=delete" method="post">
+                <div class="modal-body">
+                    <input hidden type="text" id="deleteId" name="deleteId">
+                    <span>Do you want to delete </span><span id="deleteName" class="text-danger"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-md btn-primary">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function infoDelete(id,name) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").innerText = name;
+    }
+
+    setTimeout(function () {
+        document.getElementById("mess").style.display="none";
+    },3000)
+</script>
 
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script src="datatables/js/jquery.dataTables.min.js"></script>

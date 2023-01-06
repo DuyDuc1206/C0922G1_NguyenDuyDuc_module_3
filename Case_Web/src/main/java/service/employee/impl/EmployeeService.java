@@ -13,4 +13,9 @@ public class EmployeeService implements IEmployeeService {
     public List<Employee> selectAllEmployee() {
         return employeeRepository.selectAllEmployee();
     }
+
+    @Override
+    public boolean deleteEmployee(int id) {
+        return employeeRepository.deleteEmployee(id);
+    }
 }

@@ -75,3 +75,12 @@ delimiter ;
 
 call get_all_employee();
 
+delimiter //
+drop procedure if exists delete_employee;
+create procedure delete_employee(in new_id int)
+begin
+delete from employee where employee_id = new_id;
+end //
+delimiter ;
+call delete_employee(2);
+

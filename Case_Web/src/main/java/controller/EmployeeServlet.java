@@ -12,30 +12,51 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "EmployeeServlet",value = "/employee")
+@WebServlet(name = "EmployeeServlet", value = "/employee")
 public class EmployeeServlet extends HttpServlet {
     private IEmployeeService employeeService = new EmployeeService();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "delete":
+                deleteEmployee(request, response);
+                break;
+        }
+    }
+
+    private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("deleteId"));
+        boolean check = employeeService.deleteEmployee(id);
+        String mess = "Deleted Successfully!";
+        if (!check){
+            mess = "Delete Failed!";
+        }
+        request.setAttribute("mess",mess);
+        showList(request, response);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null){
-            action="";
+        if (action == null) {
+            action = "";
         }
-        switch (action){
+        switch (action) {
             default:
-                showList(request,response);
+                showList(request, response);
                 break;
         }
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) {
         List<Employee> employeeList = employeeService.selectAllEmployee();
-        request.setAttribute("employeeList",employeeList);
+        request.setAttribute("employeeList", employeeList);
         try {
-            request.getRequestDispatcher("/view/employee/list.jsp").forward(request,response);
+            request.getRequestDispatcher("/view/employee/list.jsp").forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

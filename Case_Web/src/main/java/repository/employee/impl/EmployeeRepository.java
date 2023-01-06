@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepository implements IEmployeeRepository {
-    private final String SELECT_ALL_EMPLOYEE = "call get_all_employee();";
+    private static final String SELECT_ALL_EMPLOYEE = "call get_all_employee();";
+    private static final String DELETE_EMPLOYEE = "call delete_employee(?);";
 
     @Override
     public List<Employee> selectAllEmployee() {
@@ -49,5 +50,18 @@ public class EmployeeRepository implements IEmployeeRepository {
             throwables.printStackTrace();
         }
         return employeeList;
+    }
+
+    @Override
+    public boolean deleteEmployee(int id) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            CallableStatement cs = connection.prepareCall(DELETE_EMPLOYEE);
+            cs.setInt(1,id);
+            return cs.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }
