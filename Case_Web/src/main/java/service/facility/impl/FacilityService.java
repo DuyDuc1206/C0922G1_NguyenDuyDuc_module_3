@@ -30,4 +30,10 @@ public class FacilityService implements IFacilityService {
     public boolean insertFacility(Facility facility) {
         return facilityRepository.insertFacility(facility);
     }
+
+    @Override
+    public List<Facility> searchFacility(String name, String rentTypeId, String facilityTypeId) {
+        return facilityRepository.searchFacility(name,rentTypeId,facilityTypeId);
+    }
+
 }

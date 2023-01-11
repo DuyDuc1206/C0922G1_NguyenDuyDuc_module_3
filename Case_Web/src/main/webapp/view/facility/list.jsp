@@ -19,11 +19,29 @@
     <p id="mess" class="text-center text-danger fs-2">${mess}</p>
 </div>
 <div class="container mt-2">
-    <div class="row">
+    <div class="row justify-content-between">
         <div class="col-md-2">
             <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addFacility">
                 ADD FACILITY <i class="fas fa-plus"></i>
             </button>
+        </div>
+        <div class="col-md-6">
+            <form action="/facility?action=search" method="post" class="d-flex">
+                <input type="text" class="col-md-3" placeholder="Search Name" name="searchName">
+                <select name="searchRentType" class="ms-2 col-md-3">
+                    <option value="">Rent Type</option>
+                    <c:forEach var="rentType" items="${rentTypeList}">
+                        <option value="${rentType.getId()}">${rentType.getName()}</option>
+                    </c:forEach>
+                </select>
+                <select name="searchFacilityType" class="ms-2 col-md-3">
+                    <option value="">Facility Type</option>
+                    <c:forEach var="facilityType" items="${facilityTypeList}">
+                        <option value="${facilityType.getId()}">${facilityType.getName()}</option>
+                    </c:forEach>
+                </select>
+                <button class="btn btn-md btn-outline-secondary ms-2 col-md-3" type="submit">Search</button>
+            </form>
         </div>
     </div>
 </div>
@@ -192,13 +210,13 @@
                 <form action="/facility?action=insert" method="post" id="formAdd">
                     <div class="d-flex justify-content-evenly ps-5" id="type">
                         <input type="text" name="facilityIdType" id="valueType" hidden>
-                        <button  class="btn tbn-md btn-outline-secondary" onclick="addVilla()" >
+                        <button class="btn tbn-md btn-outline-secondary" onclick="addVilla()">
                             Villa
                         </button>
-                        <button  class="btn tbn-md btn-outline-secondary" onclick="addHouse()" >
+                        <button class="btn tbn-md btn-outline-secondary" onclick="addHouse()">
                             House
                         </button>
-                        <button class="btn tbn-md btn-outline-secondary" onclick="addRoom()" >Room
+                        <button class="btn tbn-md btn-outline-secondary" onclick="addRoom()">Room
                         </button>
                     </div>
                     <div class="mb-3">

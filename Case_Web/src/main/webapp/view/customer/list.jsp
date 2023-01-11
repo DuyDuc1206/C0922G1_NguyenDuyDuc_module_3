@@ -31,7 +31,7 @@
                        name="address">
                 <input class="form-control me-2" type="text" placeholder="Search Email" aria-label="search"
                        name="email">
-                <button class="btn btn-outline-secondary col-md-2" type="submit">Search</button>
+                <button class="btn btn-outline-secondary col-md-3" type="submit">Search</button>
             </form>
         </div>
     </div>

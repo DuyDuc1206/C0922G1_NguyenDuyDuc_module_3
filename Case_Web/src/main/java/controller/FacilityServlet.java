@@ -30,6 +30,9 @@ public class FacilityServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "search":
+                searchFacility(request,response);
+                break;
             case "delete":
                 deleteFacility(request, response);
                 break;
@@ -39,6 +42,25 @@ public class FacilityServlet extends HttpServlet {
             case "insert":
                 insertFacility(request, response);
                 break;
+        }
+    }
+
+    private void searchFacility(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("searchName");
+        String rentTypeId = request.getParameter("searchRentType");
+        String facilityTypeId = request.getParameter("searchFacilityType");
+        List<Facility> facilityList = facilityService.searchFacility(name,rentTypeId,facilityTypeId);
+        request.setAttribute("facilityList",facilityList);
+        List<RentType> rentTypeList = rentTypeRepository.selectAllRentType();
+        request.setAttribute("rentTypeList",rentTypeList);
+        List<FacilityType> facilityTypeList = facilityTypeRepository.selectAllFacilityType();
+        request.setAttribute("facilityTypeList",facilityTypeList);
+        try {
+            request.getRequestDispatcher("/view/facility/list.jsp").forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

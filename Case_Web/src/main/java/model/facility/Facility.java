@@ -17,6 +17,11 @@ public class Facility {
     public Facility() {
     }
 
+    public Facility(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Facility(int id, String name, int area, double cost, int maxPeople, String standardRoom, String description, int poolArea, int numberOfFloor, String facilityFree, RentType rentType, FacilityType facilityType) {
         this.id = id;
         this.name = name;

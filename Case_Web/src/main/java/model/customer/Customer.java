@@ -14,6 +14,11 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Customer(String name, String dateOfBirth, String gender, String idCard, String phoneNumber, String address, String email, CustomerType customerType) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;

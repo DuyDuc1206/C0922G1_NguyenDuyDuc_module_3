@@ -45,7 +45,7 @@
                     <a class="nav-link " href="/facility" >Facility</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link " href="/view/contract/list.jsp" >Contract</a>
+                    <a class="nav-link " href="/contract" >Contract</a>
                 </li>
             </ul>
         </div>

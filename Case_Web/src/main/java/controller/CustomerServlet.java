@@ -60,7 +60,7 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    private void insertCustomer(HttpServletRequest request, HttpServletResponse response) {
+    private void insertCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         String dateOfBirth = request.getParameter("dateOfBirth");
         String gender = request.getParameter("gender");
@@ -76,10 +76,10 @@ public class CustomerServlet extends HttpServlet {
         if (!errorMap.isEmpty()) {
             mess = "Add Failed!";
         }
-        request.setAttribute("mess",mess);
+        request.getSession().setAttribute("mess",mess);
         request.setAttribute("errorMap",errorMap);
         request.setAttribute("customer", customer);
-        showList(request, response);
+        response.sendRedirect("/customer");
 
     }
 
